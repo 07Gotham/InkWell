@@ -20,9 +20,15 @@ if (!process.env.MONGODB_URI) {
   throw new Error("MONGODB_URI is missing from .env");
 }
 
+const allowedOrigins = [
+  "http://localhost:5173",
+  process.env.CLIENT_URL
+].filter(Boolean);
+
 app.use(
   cors({
-    origin: process.env.CLIENT_URL,
+    origin: allowedOrigins,
+    credentials: true
   })
 );
 
